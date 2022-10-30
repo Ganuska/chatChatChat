@@ -1,5 +1,4 @@
 import React from "react";
-
 const Message = () => {
   return (
     <>
@@ -14,7 +13,7 @@ const Message = () => {
         </div>
         <p className="m-5 border rounded-lg bg-white p-2">some Message</p>
       </div>
-      <div className="flex p-3  justify-end">
+      <div className="flex pr-5  justify-end">
         <p className="m-5 border rounded-lg bg-blue-600 border-none p-2">
           some Message
         </p>

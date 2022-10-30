@@ -1,4 +1,5 @@
 import React from "react";
+import { ImAttachment } from "react-icons/im";
 const Input = () => {
   return (
     <div className="flex w-full relative items-center">
@@ -11,12 +12,9 @@ const Input = () => {
         send
       </button>
       <label htmlFor="InputFile" className="cursor-pointer">
-        <img
-          htmlFor="InputFile"
-          src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg"
-          alt="Input file"
-          className="w-9 h-9 absolute right-16 top-2 "
-        />
+        <div className=" flex justify-center items-center absolute right-16 top-3 ">
+          <ImAttachment size={"1.5em"} color={"gray"} />
+        </div>
       </label>
       <input type="file" id="InputFile" className="hidden  " />
     </div>
