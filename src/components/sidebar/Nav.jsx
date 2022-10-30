@@ -6,8 +6,12 @@ const Nav = () => {
       <h1>moj Chat</h1>
       <section className="flex gap-1 pr-3 items-center">
         {" "}
-        <img src="" alt="avatar" className="rounded-full" />
-        <h3>Name</h3>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg"
+          alt="avatar"
+          className="rounded-full object-cover w-9 h-9"
+        />
+        <h3>Zoran S.</h3>
         <button className="bg-blue-700 p-1 text-sm rounded-sm ">Logout</button>
       </section>
     </div>
