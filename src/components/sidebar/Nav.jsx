@@ -11,7 +11,9 @@ const Nav = (props) => {
           className="rounded-full object-cover w-9 h-9"
         />
         <h3>Zoran S.</h3>
-        <button className="bg-blue-700 p-1 text-sm rounded-sm ">Logout</button>
+        <button className="bg-blue-700 hover:bg-blue-500 p-1 text-sm  rounded-md ">
+          Logout
+        </button>
       </section>
     </div>
   );

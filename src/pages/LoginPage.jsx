@@ -1,9 +1,14 @@
+
+
+
 import React, { useState } from "react";
 const LoginPage = () => {
   const [login, setLogin] = useState({
     email: "",
     password: "",
   });
+
+  /* controled form */
   const handleChange = (e) => {
     setLogin((old) => {
       const name = e.target.name;
@@ -11,7 +16,7 @@ const LoginPage = () => {
       return { ...old, [name]: value };
     });
   };
-
+/* need to add functionality */
   const handleSubmit = (e) => {
     e.preventDefault();
   };
