@@ -9,3 +9,5 @@ module.exports = {
     scrollbar: ["rounded"],
   },
 };
+
+/* added plugin for scrollbar -tailwind doesnt have scroollbar in stock */
