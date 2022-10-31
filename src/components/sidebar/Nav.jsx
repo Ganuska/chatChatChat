@@ -1,6 +1,5 @@
 import React from "react";
-
-const Nav = () => {
+const Nav = (props) => {
   return (
     <div className="sm:flex h-[50px] hidden justify-between bg-slate-600 items-center pl-3 text-white">
       <h1>moj Chat</h1>
