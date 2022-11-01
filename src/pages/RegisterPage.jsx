@@ -1,4 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { auth, registerWithEmailAndPassword } from "../firebase/firebase";
+
 const RegisterPage = () => {
   const [form, setForm] = useState({
     name: "",
@@ -12,19 +17,22 @@ const RegisterPage = () => {
       return { ...old, [name]: value };
     });
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
+  const register = () => {
+    if (!form.name) alert("Please enter name");
+    registerWithEmailAndPassword(form.name, form.email, form.password);
   };
+  useEffect(() => {
+    if (loading) return;
+    if (user) navigate({ pathname: "/Home" });
+  }, [user, loading]);
 
   return (
     <div className="h-screen flex justify-center items-center bg-indigo-200">
       <div className=" flex justify-center items-center flex-col bg-indigo-200 sm:bg-white rounded-md border-1 p-6 border-emerald-100 w-full h-full sm:w-[300px] sm:h-[400px] ">
         <h1 className="text-center font-bold">Moj chat App</h1>
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-5 justify-center mt-10 items-center"
-        >
+        <form className="flex flex-col gap-5 justify-center mt-10 items-center">
           <input
             type="text"
             placeholder="name"
@@ -56,8 +64,11 @@ const RegisterPage = () => {
             <img src="" alt="avatar" className="rounded-full" />
             choose Avatar
           </label>
-          <input type="file" name="avatar" className="hidden" />
-          <button className=" justify-center rounded-md flex w-1/2 text-center p-2 bg-sky-500 hover:bg-sky-200  ">
+          <input type="file" id="avatar" className="hidden" />
+          <button
+            onClick={register}
+            className=" justify-center rounded-md flex w-1/2 text-center p-2 bg-sky-500 hover:bg-sky-200  "
+          >
             Sign Up
           </button>
         </form>
@@ -66,7 +77,9 @@ const RegisterPage = () => {
         </p>
         <p className="text-sm mt-2 text-gray-400">
           Alredy have an account?
-          <b className="hover:text-blue-900 cursor-pointer"> Log In</b>
+          <b className="hover:text-blue-900 cursor-pointer">
+            <Link to={"/"}> Log In</Link>
+          </b>
         </p>
       </div>
     </div>
