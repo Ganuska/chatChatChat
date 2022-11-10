@@ -1,6 +1,6 @@
 import React from "react";
 
-const Recive = () => {
+const Recive = (props) => {
   return (
     <div className="flex p-3">
       <div className="flex flex-col justify-center items-center ">
@@ -11,7 +11,7 @@ const Recive = () => {
         />
         <p className="text-gray-500 text-sm">just now</p>
       </div>
-      <p className="m-5 border rounded-lg bg-white p-2">some Message</p>
+      <p className="m-5 border rounded-lg bg-white p-2">{props.text}</p>
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import React from "react";
 
-const Send = () => {
+const Send = (props) => {
   return (
     <div className="flex pr-5  justify-end">
       <p className="m-5 border rounded-lg bg-blue-600 border-none p-2">
-        some Message
+        {props.text}
       </p>
       <div className="flex flex-col justify-center items-center ">
         <img
