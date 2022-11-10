@@ -1,5 +1,14 @@
 import React from "react";
-const Nav = (props) => {
+import { UserAuth } from "../../context/authContext";
+const Nav = () => {
+  const { logOut } = UserAuth();
+  const handleLogout = async () => {
+    try {
+      await logOut();
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
   return (
     <div className="sm:flex h-[50px] hidden justify-between bg-slate-600 items-center pl-3 text-white">
       <h1>moj Chat</h1>
@@ -11,7 +20,10 @@ const Nav = (props) => {
           className="rounded-full object-cover w-9 h-9"
         />
         <h3>Zoran S.</h3>
-        <button className="bg-blue-700 hover:bg-blue-500 p-1 text-sm  rounded-md ">
+        <button
+          onClick={() => handleLogout()}
+          className="bg-blue-700 hover:bg-blue-500 p-1 text-sm  rounded-md "
+        >
           Logout
         </button>
       </section>

@@ -1,17 +1,21 @@
 import React from "react";
-import Message from "./Message";
+import Recive from "./Recive";
+import Send from "./Send";
 const Messages = () => {
   return (
     <div className=" ">
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
+      <Send />
+      <Recive />
+      <Send />
+      <Recive />
+      <Send />
+      <Recive />
+      <Send />
+      <Recive />
+      <Send />
+      <Recive />
+      <Send />
+      <Recive />
     </div>
   );
 };

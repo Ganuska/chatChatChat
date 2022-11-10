@@ -1,51 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
+import { UserAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import { auth, registerWithEmailAndPassword } from "../firebase/firebase";
-
+import { auth } from "../firebase";
+import { useUpdateProfile } from "react-firebase-hooks/auth";
 const RegisterPage = () => {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-  const handleChange = (e) => {
-    setForm((old) => {
-      const name = e.target.name;
-      const value = e.target.value;
-      return { ...old, [name]: value };
-    });
-  };
-  const [user, loading, error] = useAuthState(auth);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [err, setError] = useState("");
   const navigate = useNavigate();
-  const register = () => {
-    if (!form.name) alert("Please enter name");
-    registerWithEmailAndPassword(form.name, form.email, form.password);
-  };
-  useEffect(() => {
-    if (loading) return;
-    if (user) navigate({ pathname: "/Home" });
-  }, [user, loading]);
+  const { createUser } = UserAuth();
+  const [updateProfile, updating, error] = useUpdateProfile(auth);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await createUser(email, password);
+      await updateProfile({ displayName: name });
+      navigate("/Home");
+    } catch (e) {
+      setError(e.message);
+      console.log(err);
+    }
+  };
   return (
     <div className="h-screen flex justify-center items-center bg-indigo-200">
       <div className=" flex justify-center items-center flex-col bg-indigo-200 sm:bg-white rounded-md border-1 p-6 border-emerald-100 w-full h-full sm:w-[300px] sm:h-[400px] ">
         <h1 className="text-center font-bold">Moj chat App</h1>
-        <form className="flex flex-col gap-5 justify-center mt-10 items-center">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-5 justify-center mt-10 items-center"
+        >
           <input
             type="text"
             placeholder="name"
             name="name"
-            onChange={handleChange}
+            onChange={(e) => setName(e.target.value)}
             className=" max-w-full focus:outline-0   text-center rounded-md border-b-2 "
           />
           <input
             type="email"
             placeholder="email"
             name="email"
-            value={form.email}
-            onChange={handleChange}
+            onChange={(e) => setEmail(e.target.value)}
             className=" max-w-full text-center focus:outline-0 border-0 border-b-2 rounded-md"
           />
           <input
@@ -53,8 +52,7 @@ const RegisterPage = () => {
             type="password"
             placeholder="password"
             name="password"
-            value={form.password}
-            onChange={handleChange}
+            onChange={(e) => setPassword(e.target.value)}
             className="max-w-full text-center   border-0 border-b-2 focus:outline-0 rounded-md"
           />
           <label
@@ -65,10 +63,7 @@ const RegisterPage = () => {
             choose Avatar
           </label>
           <input type="file" id="avatar" className="hidden" />
-          <button
-            onClick={register}
-            className=" justify-center rounded-md flex w-1/2 text-center p-2 bg-sky-500 hover:bg-sky-200  "
-          >
+          <button className=" justify-center rounded-md flex w-1/2 text-center p-2 bg-sky-500 hover:bg-sky-200  ">
             Sign Up
           </button>
         </form>

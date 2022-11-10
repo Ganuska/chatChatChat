@@ -4,20 +4,21 @@
 /* need to add reactContext */
 
 import LoginPage from "./pages/LoginPage";
-
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import RegisterPage from "./pages/RegisterPage";
+import { AuthContextProvider } from "./context/authContext";
+
 function App() {
   return (
     <>
-      <Router>
+      <AuthContextProvider>
         <Routes>
           <Route exact path="/" element={<LoginPage />} />
           <Route exact path="/RegisterPage" element={<RegisterPage />} />
           <Route exact path="/Home" element={<Home />} />
         </Routes>
-      </Router>
+      </AuthContextProvider>
     </>
   );
 }
