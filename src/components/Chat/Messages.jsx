@@ -1,19 +1,3 @@
-<<<<<<< Updated upstream
-import React from "react";
-import Message from "./Message";
-const Messages = () => {
-  return (
-    <div className=" ">
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-=======
 import { useEffect } from "react";
 import { useState } from "react";
 import { SDrone } from "../../context/scaledroneContext";
@@ -41,7 +25,6 @@ const Messages = () => {
           return <Recive key={index} text={item.data} />;
         }
       })}
->>>>>>> Stashed changes
     </div>
   );
 };
