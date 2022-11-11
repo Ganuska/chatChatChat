@@ -11,8 +11,8 @@ const Messages = () => {
     room?.on("message", (message) => {
       const { data, id, timestamp, clientId, member } = message;
       setMessages((old) => [...old, message]);
-      console.log(drone.clientId);
-      console.log(clientId);
+      // console.log(drone.clientId);
+      // console.log(clientId);
     });
   }, []);
 
