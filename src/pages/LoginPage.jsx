@@ -1,14 +1,15 @@
-
-
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { UserAuth } from "../context/authContext";
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const { logIn } = UserAuth();
+
   const [login, setLogin] = useState({
     email: "",
     password: "",
   });
-
-  /* controled form */
   const handleChange = (e) => {
     setLogin((old) => {
       const name = e.target.name;
@@ -16,9 +17,15 @@ const LoginPage = () => {
       return { ...old, [name]: value };
     });
   };
-/* need to add functionality */
-  const handleSubmit = (e) => {
+
+  const handleLogIn = async (e) => {
     e.preventDefault();
+    try {
+      await logIn(login.email, login.password);
+      navigate("/Home");
+    } catch (e) {
+      console.log(e.message);
+    }
   };
 
   return (
@@ -26,7 +33,7 @@ const LoginPage = () => {
       <div className=" flex justify-center items-center flex-col bg-indigo-200 sm:bg-white rounded-md border-1 p-6 border-emerald-100 w-full h-full sm:w-[300px] sm:h-[400px] ">
         <h1 className="text-center font-bold">Moj chat App</h1>
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleLogIn}
           className="flex flex-col gap-5 justify-center mt-10 items-center"
         >
           <input
@@ -54,7 +61,9 @@ const LoginPage = () => {
 
         <p className="text-sm mt-2 text-gray-400">
           don`t have an account?
-          <b className="hover:text-blue-900 cursor-pointer"> Sign Up</b>
+          <b className="hover:text-blue-900 cursor-pointer">
+            <Link to={"/RegisterPage"}>Sign Up</Link>{" "}
+          </b>
         </p>
       </div>
     </div>
