@@ -1,22 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { UserAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
+import { useUpdateProfile } from "react-firebase-hooks/auth";
 const RegisterPage = () => {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-  const handleChange = (e) => {
-    setForm((old) => {
-      const name = e.target.name;
-      const value = e.target.value;
-      return { ...old, [name]: value };
-    });
-  };
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [err, setError] = useState("");
+  const navigate = useNavigate();
+  const { createUser } = UserAuth();
+  const [updateProfile, updating, error] = useUpdateProfile(auth);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    try {
+      await createUser(email, password);
+      await updateProfile({ displayName: name });
+      navigate("/Home");
+    } catch (e) {
+      setError(e.message);
+      console.log(err);
+    }
   };
-
   return (
     <div className="h-screen flex justify-center items-center bg-indigo-200">
       <div className=" flex justify-center items-center flex-col bg-indigo-200 sm:bg-white rounded-md border-1 p-6 border-emerald-100 w-full h-full sm:w-[300px] sm:h-[400px] ">
@@ -29,15 +37,14 @@ const RegisterPage = () => {
             type="text"
             placeholder="name"
             name="name"
-            onChange={handleChange}
+            onChange={(e) => setName(e.target.value)}
             className=" max-w-full focus:outline-0   text-center rounded-md border-b-2 "
           />
           <input
             type="email"
             placeholder="email"
             name="email"
-            value={form.email}
-            onChange={handleChange}
+            onChange={(e) => setEmail(e.target.value)}
             className=" max-w-full text-center focus:outline-0 border-0 border-b-2 rounded-md"
           />
           <input
@@ -45,8 +52,7 @@ const RegisterPage = () => {
             type="password"
             placeholder="password"
             name="password"
-            value={form.password}
-            onChange={handleChange}
+            onChange={(e) => setPassword(e.target.value)}
             className="max-w-full text-center   border-0 border-b-2 focus:outline-0 rounded-md"
           />
           <label
@@ -56,7 +62,7 @@ const RegisterPage = () => {
             <img src="" alt="avatar" className="rounded-full" />
             choose Avatar
           </label>
-          <input type="file" name="avatar" className="hidden" />
+          <input type="file" id="avatar" className="hidden" />
           <button className=" justify-center rounded-md flex w-1/2 text-center p-2 bg-sky-500 hover:bg-sky-200  ">
             Sign Up
           </button>
@@ -66,7 +72,9 @@ const RegisterPage = () => {
         </p>
         <p className="text-sm mt-2 text-gray-400">
           Alredy have an account?
-          <b className="hover:text-blue-900 cursor-pointer"> Log In</b>
+          <b className="hover:text-blue-900 cursor-pointer">
+            <Link to={"/"}> Log In</Link>
+          </b>
         </p>
       </div>
     </div>
