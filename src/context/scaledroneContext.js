@@ -1,38 +1,38 @@
 import { useContext, useState, useEffect } from "react";
 import { createContext } from "react";
-
+import { auth } from "../firebase";
 const DroneContext = createContext();
 
 export const DroneContextProvider = ({ children }) => {
-  const [drone, setDrone] = useState();
-  const [room, setRoom] = useState();
-  const [mess, setMess] = useState();
+  const [member, setMember] = useState({
+    userName: auth.currentUser,
+    profile: "s",
+  });
+  const [drone, setDrone] = useState(
+    new window.Scaledrone(process.env.REACT_APP_CHANEL_ID, {
+      data: member,
+    })
+  );
+  const [room, setRoom] = useState(drone.subscribe("observable-algebra-chat"));
+
   useEffect(() => {
-    const drone = new window.Scaledrone(process.env.REACT_APP_CHANEL_ID);
-    setDrone(drone);
-    if (drone) {
-      drone.on("start", (error) => {
+    drone.on("start", (error) => {
+      console.log(error);
+    });
+    console.log(drone);
+    room.on("open", (error) => {
+      if (error) {
         console.log(error);
-      });
-    }
-    if (drone) {
-      setRoom(drone.subscribe("observable-algebra-chat"));
-    } else if (room) {
-      room.on("open", (error) => {
-        if (error) {
-          console.log(error);
-        }
-      });
-    }
-  }, []);
-  console.log(room);
+      }
+    });
+    console.log(room);
+  }, [drone, room]);
 
   const handleSend = (input) => {
     drone.publish({
       room: "observable-algebra-chat",
       message: input,
     });
-    room.on("message", (message) => console.log("Received message:", message));
   };
   return (
     <DroneContext.Provider value={{ drone, room, handleSend }}>

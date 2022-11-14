@@ -16,12 +16,17 @@ const Input = () => {
   const handleChange = (e) => {
     setInput(e.target.value);
   };
-
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
   return (
     <div className="flex w-full relative items-center">
       <input
         type="text"
         onChange={handleChange}
+        onKeyPress={handleKeyDown}
         value={input}
         placeholder="Type something..."
         className=" outline-none w-full border-none p-3  cursor-text box-border h-[50px]"

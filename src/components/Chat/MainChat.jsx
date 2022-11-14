@@ -1,10 +1,29 @@
 import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import Messages from "./Messages";
-import { UserAuth } from "../../context/authContext";
 import { SDrone } from "../../context/scaledroneContext";
 const MainChat = () => {
-  const { user } = UserAuth();
+  const [drone, setDrone] = useState();
+  const [room, setRoom] = useState();
+  useEffect(() => {
+    const drone = new window.Scaledrone(process.env.REACT_APP_CHANEL_ID);
+    setDrone(drone);
+    if (drone) {
+      drone.on("start", (error) => {
+        console.log(error);
+      });
+    }
+    if (drone) {
+      setRoom(drone.subscribe("observable-algebra-chat"));
+    } else if (room) {
+      room.on("open", (error) => {
+        if (error) {
+          console.log(error);
+        }
+      });
+    }
+  }, []);
+
   const handleSend = () => {};
   return (
     <div className="flex h-full  border-none  flex-col justify-between">
