@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from "react";
 import { createContext } from "react";
-import { auth } from "../firebase";
 const DroneContext = createContext();
 
 export const DroneContextProvider = ({ children }) => {

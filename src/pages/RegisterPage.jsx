@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { UserAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ const RegisterPage = () => {
   const [err, setError] = useState("");
   const navigate = useNavigate();
   const { createUser } = UserAuth();
-  const [updateProfile, updating, error] = useUpdateProfile(auth);
+  const [updateProfile] = useUpdateProfile(auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
