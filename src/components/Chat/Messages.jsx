@@ -20,9 +20,13 @@ const Messages = () => {
     <div className=" ">
       {messages.map((item, index) => {
         if (item.clientId === drone.clientId) {
-          return <Send key={index} text={item.data} />;
+          return (
+            <Send key={index} text={item.data} timestamp={item.timestamp} />
+          );
         } else {
-          return <Recive key={index} text={item.data} />;
+          return (
+            <Recive key={index} text={item.data} timestamp={item.timestamp} />
+          );
         }
       })}
     </div>

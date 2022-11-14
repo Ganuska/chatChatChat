@@ -5,7 +5,8 @@ const DroneContext = createContext();
 
 export const DroneContextProvider = ({ children }) => {
   const [member, setMember] = useState({
-    userName: auth.currentUser,
+    userName:
+      'auth.currentUser.displayName ? auth.currentUser.displayName : ""',
     profile: "s",
   });
   const [drone, setDrone] = useState(

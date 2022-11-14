@@ -3,26 +3,26 @@ import Input from "./Input";
 import Messages from "./Messages";
 import { SDrone } from "../../context/scaledroneContext";
 const MainChat = () => {
-  const [drone, setDrone] = useState();
-  const [room, setRoom] = useState();
-  useEffect(() => {
-    const drone = new window.Scaledrone(process.env.REACT_APP_CHANEL_ID);
-    setDrone(drone);
-    if (drone) {
-      drone.on("start", (error) => {
-        console.log(error);
-      });
-    }
-    if (drone) {
-      setRoom(drone.subscribe("observable-algebra-chat"));
-    } else if (room) {
-      room.on("open", (error) => {
-        if (error) {
-          console.log(error);
-        }
-      });
-    }
-  }, []);
+  // const [drone, setDrone] = useState();
+  // const [room, setRoom] = useState();
+  // useEffect(() => {
+  //   const drone = new window.Scaledrone(process.env.REACT_APP_CHANEL_ID);
+  //   setDrone(drone);
+  //   if (drone) {
+  //     drone.on("start", (error) => {
+  //       console.log(error);
+  //     });
+  //   }
+  //   if (drone) {
+  //     setRoom(drone.subscribe("observable-algebra-chat"));
+  //   } else if (room) {
+  //     room.on("open", (error) => {
+  //       if (error) {
+  //         console.log(error);
+  //       }
+  //     });
+  //   }
+  // }, []);
 
   const handleSend = () => {};
   return (
