@@ -67,9 +67,7 @@ const RegisterPage = () => {
             Sign Up
           </button>
         </form>
-        <p className="mt-2 cursor-pointer hover:underline">
-          or sign in with Google{" "}
-        </p>
+        <p className="mt-2 cursor-pointer hover:underline"></p>
         <p className="text-sm mt-2 text-gray-400">
           Alredy have an account?
           <b className="hover:text-blue-900 cursor-pointer">

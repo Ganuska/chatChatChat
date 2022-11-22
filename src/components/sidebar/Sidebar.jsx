@@ -1,13 +1,11 @@
 import React from "react";
 import Nav from "./Nav";
-import Rooms from "./Rooms";
-import Search from "./Search";
+import Members from "./Members";
 const Sidebar = () => {
   return (
     <div className="flex flex-col h-full">
       <Nav />
-      <Search />
-      <Rooms />
+      <Members />
     </div>
   );
 };

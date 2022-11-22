@@ -34,6 +34,7 @@ export const DroneContextProvider = ({ children }) => {
       message: input,
     });
   };
+
   return (
     <DroneContext.Provider value={{ drone, room, handleSend }}>
       {children}
