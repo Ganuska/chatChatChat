@@ -1,14 +1,10 @@
-/* need to add ReactRouterDOM */
-/* need to add firebase Auth */
-/* need to connect to database */
-/* need to add reactContext */
-
 import LoginPage from "./pages/LoginPage";
 import Home from "./pages/Home";
 import RegisterPage from "./pages/RegisterPage";
 import { AuthContextProvider } from "./context/authContext";
 import { DroneContextProvider } from "./context/scaledroneContext";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+
 function App() {
   return (
     <>

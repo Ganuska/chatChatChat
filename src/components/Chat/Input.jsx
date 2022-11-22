@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { ImAttachment } from "react-icons/im";
-import { UserAuth } from "../../context/authContext";
 import { SDrone } from "../../context/scaledroneContext";
 
 const Input = () => {
-  const { user } = UserAuth();
   const [input, setInput] = useState("");
   const { handleSend } = SDrone();
 
